@@ -1,0 +1,32 @@
+name: Execução de Testes Automáticos
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  testes-automacao:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Passo 1 - Baixar o código do seu GitHub
+      uses: actions/checkout@v4
+
+    - name: Passo 2 - Instalar o Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Passo 3 - Instalar bibliotecas (requirements.txt)
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Passo 4 - Instalar Navegadores (Playwright)
+      # Se você usa Selenium, pode apagar esta linha abaixo
+      run: playwright install --with-deps 
+
+    - name: Passo 5 - Rodar os Testes do Projeto
+      run: pytest testes/test_fluxo.py --base-url http://seu-site-de-teste.com
