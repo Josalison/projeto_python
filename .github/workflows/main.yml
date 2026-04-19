@@ -26,7 +26,13 @@ jobs:
 
     - name: Passo 4 - Instalar Navegadores (Playwright)
       # Se você usa Selenium, pode apagar esta linha abaixo
-      run: playwright install --with-deps 
+      run: playwright install --with-deps
 
     - name: Passo 5 - Rodar os Testes do Projeto
       run: pytest testes/test_fluxo.py --base-url http://seu-site-de-teste.com
+
+    - name: Rodar os Testes
+      env:
+        USER_EMAIL: ${{ secrets.USER_EMAIL }}
+        USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+      run: pytest testes/test_fluxo.py
