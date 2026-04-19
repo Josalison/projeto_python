@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Passo 1 - Baixar o código do seu GitHub
+    - name: Passo 1 - Baixar o código
       uses: actions/checkout@v4
 
     - name: Passo 2 - Instalar o Python
@@ -19,19 +19,15 @@ jobs:
       with:
         python-version: '3.12'
 
-    - name: Passo 3 - Instalar bibliotecas (requirements.txt)
+    - name: Passo 3 - Instalar bibliotecas
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Passo 4 - Instalar Navegadores (Playwright)
-      # Se você usa Selenium, pode apagar esta linha abaixo
-      run: playwright install --with-deps
+    - name: Passo 4 - Instalar Playwright Browsers
+      run: playwright install --with-deps 
 
-    - name: Passo 5 - Rodar os Testes do Projeto
-      run: pytest testes/test_fluxo.py --base-url http://seu-site-de-teste.com
-
-    - name: Rodar os Testes
+    - name: Passo 5 - Rodar os Testes
       env:
         USER_EMAIL: ${{ secrets.USER_EMAIL }}
         USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
